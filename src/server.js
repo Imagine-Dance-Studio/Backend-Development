@@ -9,7 +9,7 @@ const { GoogleAuth } = require("google-auth-library");
 dotenv.config();
 
 const SHEET_ID = process.env.SHEET_ID;
-const SERVICE_ACCOUNT_KEY = JSON.parse(fs.readFileSync("google-credentials.json"));
+const SERVICE_ACCOUNT_KEY = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
 const app = express();
 app.use(cors());
