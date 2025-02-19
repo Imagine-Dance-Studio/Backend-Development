@@ -18,21 +18,15 @@ app.use(bodyParser.json());
 async function accessSpreadsheet(formData) {
     try {
         const doc = new GoogleSpreadsheet(SHEET_ID);
-
-        // Set up the GoogleAuth instance to authenticate with the service account
         const auth = new GoogleAuth({
             credentials: SERVICE_ACCOUNT_KEY,
             scopes: ["https://www.googleapis.com/auth/spreadsheets"],
         });
-
-        // Get the authentication client
         const authClient = await auth.getClient();
-
-        // Set the authentication client to the Google Spreadsheet instance
         doc.auth = authClient;
 
-        await doc.loadInfo(); // Load the spreadsheet
-        const sheet = doc.sheetsByIndex[0]; // First sheet
+        await doc.loadInfo();
+        const sheet = doc.sheetsByIndex[0];
         await sheet.addRow(formData);
 
         console.log("Data added to Google Sheets");
